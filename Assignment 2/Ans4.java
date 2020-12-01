@@ -3,7 +3,7 @@ public class Ans4{
         long n=1;
         long sumUptoN = 1;
         while(n<Integer.MAX_VALUE){
-            if(sumUptoN==n*n){
+            if(sumUptoN==n*n && n!=1){
                 System.out.println("Answer: "+n);
             }
             n=n+1;
