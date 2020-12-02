@@ -1,34 +1,56 @@
-import java.util.*;
+import java.util.Scanner;
 
 public class Substring {
-    public int count(String str1,String str2){
-        if(str2.length()==0 || str1.length()==0){
+    
+    private boolean isCountZero(int[] chars){
+        for(int i: chars)
+            if(i != 0)
+                return false;
+        
+        return true;
+    }
+    
+    public int substring(String str, String subStr){
+        if(str == null || str.length() < 1 || subStr == null || subStr.length() < 1)
             return 0;
+        
+        if(str.length() < subStr.length())
+            return 0;
+        
+        int[] hash_array = new int[26];
+        int winSize = subStr.length(), count = 0;
+   
+        for(char c: subStr.toCharArray())
+            hash_array[c - 'a']++;
+        for(char c: str.substring(0, winSize).toCharArray())
+            hash_array[c - 'a']--;
+        
+        count += (isCountZero(hash_array))? 1: 0;
+        
+        for(int i=winSize; i<str.length(); ++i){
+            
+            hash_array[str.charAt(i) - 'a']--;
+            
+            hash_array[str.charAt(i-winSize) - 'a']++;
+            
+            count += (isCountZero(hash_array))? 1: 0;
         }
-        int counter = 0;
-        int arr[] = new int[256];
-        for(int i=0;i<str1.length();i++){
-            arr[str1.charAt(i)]++;
-        }
-        boolean flag=true;
-        while(flag){
-            for(int i=0;i<str2.length();i++){
-                if(arr[str2.charAt(i)]==0){
-                    flag = false;
-                    break;
-                }
-                arr[str2.charAt(i)]--;
-            }
-            counter++;
-        }
-        return counter-1;
+        
+        return count;
     }
+    
     public static void main(String[] args) {
-
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Enter the strings and its substring: ");
-        String str1 = scan.nextLine();
-        String str2 = scan.nextLine();
-        System.out.println("Count: "+new Substring().count(str1,str2));
+    
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Program to count the sub-string in a string if the order of characters doesn't matter\n");
+        System.out.println("Enter string(only lowercase alphabets[a-z]):");
+        String str = sc.nextLine();
+        System.out.println("Enter sub-string:");
+        String substr = sc.nextLine();
+        
+        System.out.print("Count: ");
+        System.out.println((new Substring()).substring(str.toLowerCase(), substr.toLowerCase()));
+        sc.close()
     }
+    
 }
