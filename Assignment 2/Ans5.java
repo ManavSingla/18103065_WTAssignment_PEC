@@ -168,19 +168,19 @@ public class Sets{
 
         // Union
         start_time = System.nanoTime();
-        Set<Integer> union_set = new HashSet<Integer>(a);
+        Set<Integer> union_set = new HashSet<Integer>(s1);
         union_set.addAll(s2);
         System.out.print("\nUnion of a and b: ");
-        System.out.println(union);
+        System.out.println(union_set);
         time_dur = System.nanoTime() - start_time;
         System.out.println("Time for union with sets: " + time_dur);
 
         // Intersection
         start_time = System.nanoTime();
-        Set<Integer> intersection_set = new HashSet<Integer>(a);
+        Set<Integer> intersection_set = new HashSet<Integer>(s1);
         union_set.retainAll(s2);
         System.out.print("\nIntersection of a and b: ");
-        System.out.println(intersection);
+        System.out.println(intersection_set);
         time_dur = System.nanoTime() - start_time;
         System.out.println("Time for intersection with sets: " + time_dur);
 
